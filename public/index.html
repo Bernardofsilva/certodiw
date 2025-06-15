@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Filmes</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cadastro_itens.html" id="menu-cadastro">Cadastro de Itens</a></li>
+                <li><a href="login.html" id="menu-login">Login</a></li>
+                <li><a href="#" id="menu-logout" style="display:none;">Logout</a></li>
+                <li><a href="#" id="menu-favoritos" style="display:none;">Meus Favoritos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="carrossel">
+        <h2>Filmes em Destaque</h2> 
+        <div id="slider">
+            <button id="prev">&#10094;</button>
+            <img id="slider-image" src="" alt="Destaque">
+            <button id="next">&#10095;</button> 
+        </div>
+    </section>
+
+    <section id="filtro-genero">
+        <label for="genero">Filtrar por gênero:</label>
+        <select id="genero">
+            <option value="todos">Todos</option>
+            <option value="Ação">Ação</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Drama">Drama</option>
+            <option value="Terror">Terror</option>
+            <option value="Ficção Científica">Ficção Científica</option>
+        </select>
+    </section>
+
+    <section id="pesquisa">
+        <input type="text" id="campo-pesquisa" placeholder="Buscar por título ou descrição...">
+        <button id="btn-pesquisar">Pesquisar</button>
+        <button id="btn-limpar">Limpar</button>
+    </section>
+
+    <section id="lista-itens">
+        <!-- Aqui os filmes serão carregados via JS -->
+    </section>
+
+    <footer>
+        <p>Autor: Bernardo Faria e Silva - Ciência da Computação - PUC Minas</p>
+    </footer>
+
+    <script src="assets/scripts/app.js"></script>
+</body>
+</html>
+<nav>
+  <a href="meus_favoritos.html" id="menu-favoritos" style="display: none;">Meus Favoritos</a>
+</nav>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Catálogo de Filmes</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Login</h1>
+    </header>
+
+    <main>
+        <section id="login-container">
+            <form id="form-login">
+                <h2>Entrar na Conta</h2>
+
+                <input type="text" id="login" name="login" placeholder="Login" required>
+                <input type="password" id="senha" name="senha" placeholder="Senha" required>
+
+                <button type="submit">Entrar</button>
+
+                <p>Não tem uma conta? <a href="#" id="mostrar-cadastro">Cadastre-se</a></p>
+            </form>
+
+            <form id="form-cadastro" style="display:none; margin-top:20px;">
+                <h2>Cadastro de Novo Usuário</h2>
+
+                <input type="text" id="cad-nome" placeholder="Nome" required>
+                <input type="text" id="cad-login" placeholder="Login" required>
+                <input type="password" id="cad-senha" placeholder="Senha" required>
+
+                <button type="submit">Cadastrar</button>
+
+                <p><a href="#" id="voltar-login">Voltar para Login</a></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Autor: Bernardo Faria e Silva - Ciência da Computação - PUC Minas</p>
+    </footer>
+
+    <script src="assets/scripts/login.js"></script>
+    <script>
+        document.getElementById('mostrar-cadastro').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('form-login').style.display = 'none';
+            document.getElementById('form-cadastro').style.display = 'block';
+        });
+
+        document.getElementById('voltar-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('form-cadastro').style.display = 'none';
+            document.getElementById('form-login').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

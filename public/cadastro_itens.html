@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Itens - Catálogo de Filmes</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Cadastro de Filmes (Admin)</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Adicionar / Editar Filme</h2>
+            <form id="form-item">
+                <input type="hidden" id="item-id">
+
+                <label for="titulo">Título:</label><br>
+                <input type="text" id="titulo" required><br><br>
+
+                <label for="descricao">Descrição:</label><br>
+                <textarea id="descricao" required></textarea><br><br>
+
+                <label for="genero">Gênero:</label><br>
+                <select id="genero" required>
+                    <option value="Ação">Ação</option>
+                    <option value="Comédia">Comédia</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Terror">Terror</option>
+                    <option value="Ficção Científica">Ficção Científica</option>
+                </select><br><br>
+
+                <label for="imagem">URL da Imagem:</label><br>
+                <input type="text" id="imagem" required><br><br>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Lista de Filmes</h2>
+            <ul id="lista-itens-crud">
+                <!-- Itens aparecerão aqui -->
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Autor: Bernardo Faria e Silva - Ciência da Computação - PUC Minas</p>
+    </footer>
+
+    <script src="assets/scripts/crud.js"></script>
+</body>
+</html>

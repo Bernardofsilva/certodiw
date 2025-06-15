@@ -1,0 +1,367 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "login": "admin",
+      "senha": "admin123",
+      "nome": "Administrador",
+      "admin": true
+    },
+    {
+      "id": "2",
+      "login": "usuario",
+      "senha": "usuario123",
+      "nome": "Usuário",
+      "admin": false
+    },
+    {
+      "id": "0d40",
+      "login": "Bernardao",
+      "senha": "12345",
+      "nome": "Bernardo",
+      "admin": true
+    }
+  ],
+  "items": [
+    {
+      "id": "1",
+      "titulo": "The Dark Knight",
+      "descricao": "Batman enfrenta o Coringa em Gotham.",
+      "genero": "Ação",
+      "imagem": "https://image.tmdb.org/t/p/w185/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
+    },
+    {
+      "id": "2",
+      "titulo": "Forrest Gump",
+      "descricao": "A história de vida de Forrest, um homem simples com um coração enorme.",
+      "genero": "Drama",
+      "imagem": "https://image.tmdb.org/t/p/w185/saHP97rTPS5eLmrLQEcANmKrsFl.jpg"
+    },
+    {
+      "id": "3",
+      "titulo": "Inception",
+      "descricao": "Um ladrão invade sonhos para roubar segredos.",
+      "genero": "Ficção Científica",
+      "imagem": "https://image.tmdb.org/t/p/w185/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg"
+    },
+    {
+      "id": "4",
+      "titulo": "Gladiator",
+      "descricao": "Um general romano busca vingança como gladiador.",
+      "genero": "Ação",
+      "imagem": "https://image.tmdb.org/t/p/w185/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg"
+    },
+    {
+      "id": "5",
+      "titulo": "Titanic",
+      "descricao": "Uma história de amor a bordo do Titanic.",
+      "genero": "Romance",
+      "imagem": "https://originalvintagemovieposters.com/wp-content/uploads/2020/02/TITANIC-8567-scaled-1392x2048.jpg"
+    },
+    {
+      "id": "6",
+      "titulo": "Pulp Fiction",
+      "descricao": "Crônicas entrelaçadas de criminosos de Los Angeles.",
+      "genero": "Crime",
+      "imagem": "https://image.tmdb.org/t/p/w185/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg"
+    },
+    {
+      "id": "7",
+      "titulo": "The Matrix",
+      "descricao": "Um hacker descobre a verdade sobre sua realidade.",
+      "genero": "Ficção Científica",
+      "imagem": "https://image.tmdb.org/t/p/w185/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
+    },
+    {
+      "id": "8",
+      "titulo": "Avengers: Endgame",
+      "descricao": "Os Vingadores enfrentam Thanos para reverter o estalo.",
+      "genero": "Ação",
+      "imagem": "https://image.tmdb.org/t/p/w185/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
+    },
+    {
+      "id": "9",
+      "titulo": "Interstellar",
+      "descricao": "Astronautas viajam por buracos de minhoca em busca de um novo lar.",
+      "genero": "Ficção Científica",
+      "imagem": "https://image.tmdb.org/t/p/w185/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"
+    },
+    {
+      "id": "10",
+      "titulo": "Parasite",
+      "descricao": "Uma família pobre infiltra-se na vida de uma rica.",
+      "genero": "Drama",
+      "imagem": "https://image.tmdb.org/t/p/w185/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
+    },
+    {
+      "id": "11",
+      "titulo": "The Godfather",
+      "descricao": "Saga da família mafiosa Corleone.",
+      "genero": "Crime",
+      "imagem": "https://image.tmdb.org/t/p/w185/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"
+    },
+    {
+      "id": "12",
+      "titulo": "Fight Club",
+      "descricao": "Dois homens criam um clube de luta underground.",
+      "genero": "Drama",
+      "imagem": "https://image.tmdb.org/t/p/w185/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg"
+    },
+    {
+      "id": "13",
+      "titulo": "The Lord of the Rings: The Fellowship of the Ring",
+      "descricao": "Hobbits iniciam uma jornada para destruir o Anel.",
+      "genero": "Fantasia",
+      "imagem": "https://image.tmdb.org/t/p/w185/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg"
+    },
+    {
+      "id": "14",
+      "titulo": "The Shawshank Redemption",
+      "descricao": "Dois presos formam uma amizade transformadora.",
+      "genero": "Drama",
+      "imagem": "https://image.tmdb.org/t/p/w185/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"
+    },
+    {
+      "id": "15",
+      "titulo": "The Lion King",
+      "descricao": "Simba aprende sobre responsabilidade e liderança.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg"
+    },
+    {
+      "id": "16",
+      "titulo": "Toy Story",
+      "descricao": "Brinquedos ganham vida quando humanos não estão por perto.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg"
+    },
+    {
+      "id": "17",
+      "titulo": "La La Land",
+      "descricao": "Músico e atriz buscam sucesso em Los Angeles.",
+      "genero": "Romance",
+      "imagem": "https://image.tmdb.org/t/p/w185/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg"
+    },
+    {
+      "id": "18",
+      "titulo": "Joker",
+      "descricao": "A origem sombria de um dos vilões mais icônicos.",
+      "genero": "Drama",
+      "imagem": "https://image.tmdb.org/t/p/w185/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
+    },
+    {
+      "id": "19",
+      "titulo": "Up",
+      "descricao": "Idoso embarca em uma aventura com um menino escoteiro.",
+      "genero": "Animação",
+      "imagem": "https://static.rogerebert.com/uploads/movie/movie_poster/up-2009/large_zh9DXJhBdHVVaWiDURTipADamcK.jpg"
+    },
+    {
+      "id": "20",
+      "titulo": "Finding Nemo",
+      "descricao": "Pai peixe cruza oceanos em busca do filho perdido.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/eHuGQ10FUzK1mdOY69wF5pGgEf5.jpg"
+    },
+    {
+      "id": "21",
+      "titulo": "Schindler's List",
+      "descricao": "Empresário salva centenas de judeus do Holocausto.",
+      "genero": "Histórico",
+      "imagem": "https://image.tmdb.org/t/p/w185/c8Ass7acuOe4za6DhSattE359gr.jpg"
+    },
+    {
+      "id": "22",
+      "titulo": "Braveheart",
+      "descricao": "William Wallace lidera a luta pela liberdade da Escócia.",
+      "genero": "Histórico",
+      "imagem": "https://image.tmdb.org/t/p/w185/or1gBugydmjToAEq7OZY0owwFk.jpg"
+    },
+    {
+      "id": "23",
+      "titulo": "The Avengers",
+      "descricao": "Heróis se unem para salvar o mundo de uma ameaça alienígena.",
+      "genero": "Ação",
+      "imagem": "https://image.tmdb.org/t/p/w185/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg"
+    },
+    {
+      "id": "24",
+      "titulo": "Coco",
+      "descricao": "Garoto mexicano explora o mundo dos mortos para entender sua família.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg"
+    },
+    {
+      "id": "25",
+      "titulo": "Frozen",
+      "descricao": "Princesa Elsa aprende a controlar seus poderes de gelo.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/mINJaa34MtknCYl5AjtNJzWj8cD.jpg"
+    },
+    {
+      "id": "26",
+      "titulo": "Shrek",
+      "descricao": "Ogro embarca em jornada com um burro falante.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg"
+    },
+    {
+      "id": "27",
+      "titulo": "Moana",
+      "descricao": "Garota polinésia parte em busca de uma ilha lendária.",
+      "genero": "Animação",
+      "imagem": "https://upload.wikimedia.org/wikipedia/pt/4/46/Moana_movie_poster_p_2016.jpg"
+    },
+    {
+      "id": "28",
+      "titulo": "Inside Out",
+      "descricao": "As emoções de uma menina ganham vida e personalidade.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/lRHE0vzf3oYJrhbsHXjIkF4Tl5A.jpg"
+    },
+    {
+      "id": "29",
+      "titulo": "The Incredibles",
+      "descricao": "Família de super-heróis volta à ação.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/2LqaLgk4Z226KkgPJuiOQ58wvrm.jpg"
+    },
+    {
+      "id": "30",
+      "titulo": "Ratatouille",
+      "descricao": "Rato sonha em ser chef em Paris.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/cgYg04miVQUAG2FKk3amSnnHzOp.jpg"
+    },
+    {
+      "id": "31",
+      "titulo": "Soul",
+      "descricao": "Músico embarca numa jornada pós-vida sobre propósito.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg"
+    },
+    {
+      "id": "32",
+      "titulo": "Luca",
+      "descricao": "Amizade de verão entre garotos com um segredo subaquático.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/jTswp6KyDYKtvC52GbHagrZbGvD.jpg"
+    },
+    {
+      "id": "33",
+      "titulo": "Turning Red",
+      "descricao": "Adolescente vira um panda vermelho quando fica ansiosa.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/qsdjk9oAKSQMWs0Vt5Pyfh6O4GZ.jpg"
+    },
+    {
+      "id": "34",
+      "titulo": "Encanto",
+      "descricao": "Família colombiana com dons mágicos vive em casa encantada.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg"
+    },
+    {
+      "id": "35",
+      "titulo": "Zootopia",
+      "descricao": "Coelha policial e raposa vigarista resolvem um mistério.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/hlK0e0wAQ3VLuJcsfIYPvb4JVud.jpg"
+    },
+    {
+      "id": "36",
+      "titulo": "WALL-E",
+      "descricao": "Robô de limpeza descobre a vida em um mundo devastado.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/hbhFnRzzg6ZDmm8YAmxBnQpQIPh.jpg"
+    },
+    {
+      "id": "37",
+      "titulo": "Finding Dory",
+      "descricao": "Peixe com perda de memória busca sua família.",
+      "genero": "Animação",
+      "imagem": "https://attractionsmagazine.com/wp-content/uploads/2016/03/Finding-Dory-movie-poster.jpg"
+    },
+    {
+      "id": "38",
+      "titulo": "Frozen II",
+      "descricao": "Elsa busca respostas sobre seus poderes em uma floresta mágica.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/pjeMs3yqRmFL3giJy4PMXWZTTPa.jpg"
+    },
+    {
+      "id": "39",
+      "titulo": "The Good Dinosaur",
+      "descricao": "Dinossauro e menino humano embarcam numa jornada de amizade.",
+      "genero": "Animação",
+      "imagem": "https://www.themoviedb.org/t/p/original/8RSkxOO80btfKjyiC5ZiTaCHIT8.jpg"
+    },
+    {
+      "id": "40",
+      "titulo": "Cars",
+      "descricao": "Carro de corrida aprende o valor da amizade.",
+      "genero": "Animação",
+      "imagem": "https://i5.walmartimages.com/asr/c7e69217-5d16-4cd8-a16e-22b7026a926a.d480bb3708d3880e9c7f49181b90601f.jpeg"
+    },
+    {
+      "id": "41",
+      "titulo": "Monsters, Inc.",
+      "descricao": "Monstros trabalham assustando crianças para gerar energia.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/sgheSKxZkttIe8ONsf2sWXPgip3.jpg"
+    },
+    {
+      "id": "42",
+      "titulo": "Brave",
+      "descricao": "Princesa escocesa desafia tradições para mudar seu destino.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/mbm8k3GFhXS0ROd9AD1gqYbIFbM.jpg"
+    },
+    {
+      "id": "43",
+      "titulo": "Onward",
+      "descricao": "Dois irmãos elfos embarcam em missão mágica para reencontrar o pai.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/f4aul3FyD3jv3v4bul1IrkWZvzq.jpg"
+    },
+    {
+      "id": "44",
+      "titulo": "A Bug's Life",
+      "descricao": "Formiga busca aliados para proteger sua colônia.",
+      "genero": "Animação",
+      "imagem": "https://www.allaboutmovies.com.au/media/k2/items/cache/1f516c300f5ccca549b5990f36e42073_XL.jpg"
+    },
+    {
+      "id": "45",
+      "titulo": "Raya and the Last Dragon",
+      "descricao": "Guerreira busca o último dragão para salvar o mundo.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg"
+    },
+    {
+      "id": "46",
+      "titulo": "Lightyear",
+      "descricao": "A origem do famoso patrulheiro espacial Buzz Lightyear.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/xbSuFiJbbBWCkyCCKIMfuDCA4yV.jpg"
+    },
+    {
+      "id": "47",
+      "titulo": "Turning Red",
+      "descricao": "Adolescente enfrenta emoções exageradas se transformando num panda vermelho.",
+      "genero": "Animação",
+      "imagem": "https://image.tmdb.org/t/p/w185/qsdjk9oAKSQMWs0Vt5Pyfh6O4GZ.jpg"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "8f17",
+      "userId": "0d40",
+      "favoritos": [
+        "1",
+        "2",
+        "12"
+      ]
+    }
+  ]
+}
