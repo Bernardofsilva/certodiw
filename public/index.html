@@ -15,17 +15,22 @@
                 <li><a href="cadastro_itens.html" id="menu-cadastro">Cadastro de Itens</a></li>
                 <li><a href="login.html" id="menu-login">Login</a></li>
                 <li><a href="#" id="menu-logout" style="display:none;">Logout</a></li>
-                <li><a href="#" id="menu-favoritos" style="display:none;">Meus Favoritos</a></li>
+                <li><a href="meus_favoritos.html" id="menu-favoritos" style="display:none;">Meus Favoritos</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="carrossel">
-        <h2>Filmes em Destaque</h2> 
-        <div id="slider">
-            <button id="prev">&#10094;</button>
-            <img id="slider-image" src="" alt="Destaque">
-            <button id="next">&#10095;</button> 
+        <h2>Filmes em Destaque</h2>
+        <div class="carrossel-container">
+            <button class="carrossel-btn prev">&#10094;</button>
+            <div class="carrossel-slides">
+                <!-- Slides serão inseridos via JavaScript -->
+            </div>
+            <button class="carrossel-btn next">&#10095;</button>
+        </div>
+        <div class="carrossel-dots">
+            <!-- Pontos de navegação serão inseridos via JavaScript -->
         </div>
     </section>
 
@@ -51,6 +56,16 @@
         <!-- Aqui os filmes serão carregados via JS -->
     </section>
 
+    <!-- Modal para detalhes dos filmes -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo será preenchido via JS -->
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>Autor: Bernardo Faria e Silva - Ciência da Computação - PUC Minas</p>
     </footer>
@@ -58,6 +73,3 @@
     <script src="assets/scripts/app.js"></script>
 </body>
 </html>
-<nav>
-  <a href="meus_favoritos.html" id="menu-favoritos" style="display: none;">Meus Favoritos</a>
-</nav>

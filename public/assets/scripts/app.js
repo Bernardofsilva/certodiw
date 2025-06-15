@@ -7,32 +7,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPesquisar = document.getElementById('btn-pesquisar');
     const btnLimpar = document.getElementById('btn-limpar');
     const selectGenero = document.getElementById('genero');
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeModal = document.querySelector('.close-modal');
 
+    // Cache de elementos e verificação de usuário
     if (usuarioLogado) {
         document.getElementById('menu-login').style.display = 'none';
         document.getElementById('menu-logout').style.display = 'inline';
         document.getElementById('menu-favoritos').style.display = 'inline';
-        if (usuarioLogado.admin) {
-            document.getElementById('menu-cadastro').style.display = 'inline';
-        } else {
-            document.getElementById('menu-cadastro').style.display = 'none';
-        }
+        document.getElementById('menu-cadastro').style.display = usuarioLogado.admin ? 'inline' : 'none';
     }
 
+    // Event Listeners
     document.getElementById('menu-logout')?.addEventListener('click', () => {
         sessionStorage.removeItem('usuarioLogado');
         window.location.reload();
     });
 
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Funções principais
     function carregarFilmes(filtroGenero = 'todos', textoPesquisa = '') {
-        fetch(API_URL)
-            .then(res => res.json())
+        fetchWithErrorHandling(API_URL)
             .then(data => {
                 listaItens.innerHTML = '';
 
                 if (usuarioLogado) {
-                    fetch(`${FAVORITOS_URL}?userId=${usuarioLogado.id}`)
-                        .then(response => response.json())
+                    fetchWithErrorHandling(`${FAVORITOS_URL}?userId=${usuarioLogado.id}`)
                         .then(favs => {
                             const favoritos = favs.length > 0 ? favs[0].favoritos : [];
                             renderizarFilmes(data, favoritos, filtroGenero, textoPesquisa);
@@ -62,9 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.add('card-item');
 
             card.innerHTML = `
-                <img src="${filme.imagem}" alt="${filme.titulo}">
+                <img src="${filme.imagem}" alt="${filme.titulo}" loading="lazy">
                 <h3>${filme.titulo}</h3>
-                <p>${filme.descricao}</p>
+                <p>${filme.descricao.substring(0, 100)}...</p>
                 ${usuarioLogado ? `<button class="btn-favorito" data-id="${filme.id}">
                     ${favoritos.includes(filme.id) ? '❤️' : '🤍'}
                 </button>` : ''}
@@ -72,13 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.addEventListener('click', (e) => {
                 if (!e.target.classList.contains('btn-favorito')) {
-                    sessionStorage.setItem('idDetalhe', filme.id);
-                    window.location.href = 'detalhes.html';
+                    abrirModal(filme);
                 }
             });
 
             if (usuarioLogado) {
-                card.querySelector('.btn-favorito').addEventListener('click', (e) => {
+                card.querySelector('.btn-favorito')?.addEventListener('click', (e) => {
                     e.stopPropagation();
                     toggleFavorito(filme.id, e.target);
                 });
@@ -88,19 +97,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function abrirModal(filme) {
+        modalBody.innerHTML = `
+            <div class="modal-poster">
+                <img src="${filme.imagem}" alt="${filme.titulo}">
+            </div>
+            <div class="modal-info">
+                <h2>${filme.titulo}</h2>
+                <p><strong>Gênero:</strong> ${filme.genero}</p>
+                <p>${filme.descricao}</p>
+            </div>
+        `;
+        modal.style.display = 'block';
+    }
+
     function toggleFavorito(idFilme, btn) {
-        fetch(`${FAVORITOS_URL}?userId=${usuarioLogado.id}`)
-            .then(res => res.json())
+        fetchWithErrorHandling(`${FAVORITOS_URL}?userId=${usuarioLogado.id}`)
             .then(favs => {
                 let favsDoUsuario = favs[0];
 
                 if (!favsDoUsuario) {
                     favsDoUsuario = { userId: usuarioLogado.id, favoritos: [] };
-                    return fetch(FAVORITOS_URL, {
+                    return fetchWithErrorHandling(FAVORITOS_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(favsDoUsuario)
-                    }).then(response => response.json());
+                    }).then(() => favsDoUsuario);
                 }
 
                 return Promise.resolve(favsDoUsuario);
@@ -116,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.textContent = '❤️';
                 }
 
-                return fetch(`${FAVORITOS_URL}/${favsDoUsuario.id}`, {
+                return fetchWithErrorHandling(`${FAVORITOS_URL}/${favsDoUsuario.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(favsDoUsuario)
@@ -127,6 +149,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    function fetchWithErrorHandling(url, options) {
+        return fetch(url, options)
+            .then(res => {
+                if (!res.ok) throw new Error('Erro na requisição');
+                return res.json();
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro. Por favor, tente novamente.');
+            });
+    }
+
+    // Event Listeners para filtros
     selectGenero.addEventListener('change', () => {
         carregarFilmes(selectGenero.value, campoPesquisa.value);
     });
@@ -141,5 +176,99 @@ document.addEventListener('DOMContentLoaded', () => {
         carregarFilmes();
     });
 
+    // Inicialização
     carregarFilmes();
+});
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (código existente até a linha 20)
+
+    // Variáveis do carrossel
+    let currentSlide = 0;
+    let slides = [];
+    let intervalId;
+
+    // Inicialização
+    carregarFilmes();
+    iniciarCarrossel();
+
+    function iniciarCarrossel() {
+        fetch(API_URL)
+            .then(res => res.json())
+            .then(filmes => {
+                // Pegar os 5 primeiros filmes para o carrossel
+                slides = filmes.slice(0, 5);
+                renderizarCarrossel();
+                iniciarAutoPlay();
+            });
+    }
+
+    function renderizarCarrossel() {
+        const carrosselSlides = document.querySelector('.carrossel-slides');
+        const carrosselDots = document.querySelector('.carrossel-dots');
+
+        carrosselSlides.innerHTML = '';
+        carrosselDots.innerHTML = '';
+
+        slides.forEach((filme, index) => {
+            // Criar slide
+            const slide = document.createElement('div');
+            slide.className = 'carrossel-slide';
+            slide.innerHTML = `
+                <img src="${filme.imagem}" alt="${filme.titulo}" loading="lazy">
+                <div class="carrossel-slide-info">
+                    <h3>${filme.titulo}</h3>
+                    <p>${filme.descricao.substring(0, 100)}...</p>
+                </div>
+            `;
+            carrosselSlides.appendChild(slide);
+
+            // Criar dot
+            const dot = document.createElement('div');
+            dot.className = `carrossel-dot ${index === 0 ? 'active' : ''}`;
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+            });
+            carrosselDots.appendChild(dot);
+        });
+
+        // Event listeners para os botões
+        document.querySelector('.carrossel-btn.prev').addEventListener('click', prevSlide);
+        document.querySelector('.carrossel-btn.next').addEventListener('click', nextSlide);
+    }
+
+    function goToSlide(index) {
+        const carrosselSlides = document.querySelector('.carrossel-slides');
+        const dots = document.querySelectorAll('.carrossel-dot');
+        
+        currentSlide = index;
+        carrosselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Atualizar dots ativos
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentSlide);
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        goToSlide(currentSlide);
+        resetAutoPlay();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        goToSlide(currentSlide);
+        resetAutoPlay();
+    }
+
+    function iniciarAutoPlay() {
+        intervalId = setInterval(nextSlide, 5000);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(intervalId);
+        iniciarAutoPlay();
+    }
+
+    // ... (restante do código existente)
 });

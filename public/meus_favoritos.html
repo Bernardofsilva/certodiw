@@ -2,16 +2,38 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Meus Favoritos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Favoritos - Catálogo de Filmes</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <h1>Meus Favoritos</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="#" id="logout">Logout</a>
-    </nav>
-    <div id="favoritos-lista" class="lista-itens"></div>
+    <header>
+        <h1>Meus Favoritos</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="lista-favoritos">
+        <!-- Filmes favoritos serão carregados aqui -->
+    </section>
+
+    <!-- Modal para detalhes dos filmes -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo será preenchido via JS -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Autor: Bernardo Faria e Silva - Ciência da Computação - PUC Minas</p>
+    </footer>
 
     <script src="assets/scripts/favoritos.js"></script>
 </body>
