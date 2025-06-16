@@ -11,7 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = document.getElementById('modal-body');
     const closeModal = document.querySelector('.close-modal');
 
-    // Cache de elementos e verificação de usuário
+    // Variáveis do carrossel
+    let currentSlide = 0;
+    let slides = [];
+    let intervalId;
+    let items = []; // Cache dos filmes
+
+    // Verificação de usuário
     if (usuarioLogado) {
         document.getElementById('menu-login').style.display = 'none';
         document.getElementById('menu-logout').style.display = 'inline';
@@ -39,7 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function carregarFilmes(filtroGenero = 'todos', textoPesquisa = '') {
         fetchWithErrorHandling(API_URL)
             .then(data => {
+                items = data; // Armazena os filmes em cache
                 listaItens.innerHTML = '';
+                
+                // Criar gráfico de pizza
+                criarGraficoPizza(data);
 
                 if (usuarioLogado) {
                     fetchWithErrorHandling(`${FAVORITOS_URL}?userId=${usuarioLogado.id}`)
@@ -51,6 +61,62 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderizarFilmes(data, [], filtroGenero, textoPesquisa);
                 }
             });
+    }
+
+    // Nova função para criar o gráfico de pizza
+    function criarGraficoPizza(filmes) {
+        // Contar filmes por gênero
+        const generos = {};
+        filmes.forEach(filme => {
+            generos[filme.genero] = (generos[filme.genero] || 0) + 1;
+        });
+
+        const ctx = document.getElementById('grafico-generos');
+        if (!ctx) return;
+
+        // Destruir gráfico anterior se existir
+        if (ctx.chart) {
+            ctx.chart.destroy();
+        }
+
+        ctx.chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(generos),
+                datasets: [{
+                    data: Object.values(generos),
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF',
+                        '#FF9F40',
+                        '#8AC24A',
+                        '#FF5722',
+                        '#607D8B',
+                        '#9C27B0'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribuição de Filmes por Gênero',
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            }
+        });
     }
 
     function renderizarFilmes(data, favoritos, filtroGenero, textoPesquisa) {
@@ -112,12 +178,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleFavorito(idFilme, btn) {
+        if (!usuarioLogado) {
+            showToast('Você precisa estar logado para favoritar filmes', 'error');
+            return;
+        }
+
+        // Desabilita o botão durante a requisição
+        btn.disabled = true;
+
         fetchWithErrorHandling(`${FAVORITOS_URL}?userId=${usuarioLogado.id}`)
             .then(favs => {
                 let favsDoUsuario = favs[0];
 
                 if (!favsDoUsuario) {
-                    favsDoUsuario = { userId: usuarioLogado.id, favoritos: [] };
+                    favsDoUsuario = { 
+                        userId: usuarioLogado.id, 
+                        favoritos: [] 
+                    };
                     return fetchWithErrorHandling(FAVORITOS_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -129,13 +206,16 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(favsDoUsuario => {
                 const jaFavoritado = favsDoUsuario.favoritos.includes(idFilme);
+                const filme = items.find(item => item.id === idFilme);
 
                 if (jaFavoritado) {
                     favsDoUsuario.favoritos = favsDoUsuario.favoritos.filter(id => id !== idFilme);
                     btn.textContent = '🤍';
+                    showToast(`${filme.titulo} removido dos favoritos`);
                 } else {
                     favsDoUsuario.favoritos.push(idFilme);
                     btn.textContent = '❤️';
+                    showToast(`${filme.titulo} adicionado aos favoritos`);
                 }
 
                 return fetchWithErrorHandling(`${FAVORITOS_URL}/${favsDoUsuario.id}`, {
@@ -145,7 +225,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             })
             .then(() => {
-                carregarFilmes(selectGenero.value, campoPesquisa.value);
+                // Atualiza apenas o card do filme em vez de recarregar tudo
+                const cards = document.querySelectorAll('.card-item');
+                cards.forEach(card => {
+                    const btnFav = card.querySelector('.btn-favorito');
+                    if (btnFav && btnFav.dataset.id === idFilme) {
+                        btnFav.textContent = btn.textContent;
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar favoritos:', error);
+                showToast('Ocorreu um erro ao atualizar favoritos', 'error');
+            })
+            .finally(() => {
+                btn.disabled = false;
             });
     }
 
@@ -157,93 +251,93 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Erro:', error);
-                alert('Ocorreu um erro. Por favor, tente novamente.');
+                showToast('Ocorreu um erro. Por favor, tente novamente.', 'error');
+                throw error;
             });
     }
 
-    // Event Listeners para filtros
-    selectGenero.addEventListener('change', () => {
-        carregarFilmes(selectGenero.value, campoPesquisa.value);
-    });
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
 
-    btnPesquisar.addEventListener('click', () => {
-        carregarFilmes(selectGenero.value, campoPesquisa.value);
-    });
-
-    btnLimpar.addEventListener('click', () => {
-        campoPesquisa.value = '';
-        selectGenero.value = 'todos';
-        carregarFilmes();
-    });
-
-    // Inicialização
-    carregarFilmes();
-});
-document.addEventListener('DOMContentLoaded', () => {
-    // ... (código existente até a linha 20)
-
-    // Variáveis do carrossel
-    let currentSlide = 0;
-    let slides = [];
-    let intervalId;
-
-    // Inicialização
-    carregarFilmes();
-    iniciarCarrossel();
-
+    // Funções do carrossel - ATUALIZADAS com novas imagens
     function iniciarCarrossel() {
-        fetch(API_URL)
-            .then(res => res.json())
-            .then(filmes => {
-                // Pegar os 5 primeiros filmes para o carrossel
-                slides = filmes.slice(0, 5);
-                renderizarCarrossel();
-                iniciarAutoPlay();
-            });
+        // Usando imagens específicas para o carrossel
+        slides = [
+            {
+                imagem: 'https://m.media-amazon.com/images/I/81-i6J7AqpL.jpg',
+                titulo: 'Disney Pixar Collector\'s Edition',
+                descricao: 'Edição especial de colecionador'
+            },
+            {
+                imagem: 'https://m.media-amazon.com/images/I/71+mhWHnBdL._UF894,1000_QL80_.jpg',
+                titulo: 'Disney Pixar DVD Collection',
+                descricao: 'Coleção completa em DVD'
+            },
+            {
+                imagem: 'https://m.media-amazon.com/images/I/91J7VHbAwBL._UF894,1000_QL80_.jpg',
+                titulo: 'Marvel Vingadores Ultimato',
+                descricao: 'O confronto final'
+            }
+        ];
+        renderizarCarrossel();
+        iniciarAutoPlay();
     }
 
     function renderizarCarrossel() {
         const carrosselSlides = document.querySelector('.carrossel-slides');
         const carrosselDots = document.querySelector('.carrossel-dots');
 
+        if (!carrosselSlides || !carrosselDots) return;
+
         carrosselSlides.innerHTML = '';
         carrosselDots.innerHTML = '';
 
         slides.forEach((filme, index) => {
-            // Criar slide
             const slide = document.createElement('div');
             slide.className = 'carrossel-slide';
             slide.innerHTML = `
-                <img src="${filme.imagem}" alt="${filme.titulo}" loading="lazy">
+                <img src="${filme.imagem}" alt="${filme.titulo}" class="carrossel-image">
                 <div class="carrossel-slide-info">
                     <h3>${filme.titulo}</h3>
-                    <p>${filme.descricao.substring(0, 100)}...</p>
+                    <p>${filme.descricao}</p>
                 </div>
             `;
             carrosselSlides.appendChild(slide);
 
-            // Criar dot
             const dot = document.createElement('div');
             dot.className = `carrossel-dot ${index === 0 ? 'active' : ''}`;
-            dot.addEventListener('click', () => {
-                goToSlide(index);
-            });
+            dot.addEventListener('click', () => goToSlide(index));
             carrosselDots.appendChild(dot);
         });
 
-        // Event listeners para os botões
-        document.querySelector('.carrossel-btn.prev').addEventListener('click', prevSlide);
-        document.querySelector('.carrossel-btn.next').addEventListener('click', nextSlide);
+        // Ajusta a largura do container de slides
+        carrosselSlides.style.width = `${slides.length * 100}%`;
     }
 
     function goToSlide(index) {
         const carrosselSlides = document.querySelector('.carrossel-slides');
         const dots = document.querySelectorAll('.carrossel-dot');
         
+        if (!carrosselSlides || !dots.length) return;
+
         currentSlide = index;
-        carrosselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        carrosselSlides.style.transform = `translateX(-${currentSlide * (100 / slides.length)}%)`;
         
-        // Atualizar dots ativos
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === currentSlide);
         });
@@ -262,13 +356,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function iniciarAutoPlay() {
+        clearInterval(intervalId);
         intervalId = setInterval(nextSlide, 5000);
     }
 
     function resetAutoPlay() {
-        clearInterval(intervalId);
         iniciarAutoPlay();
     }
 
-    // ... (restante do código existente)
+    // Event Listeners para filtros
+    selectGenero.addEventListener('change', () => {
+        carregarFilmes(selectGenero.value, campoPesquisa.value);
+    });
+
+    btnPesquisar.addEventListener('click', () => {
+        carregarFilmes(selectGenero.value, campoPesquisa.value);
+    });
+
+    btnLimpar.addEventListener('click', () => {
+        campoPesquisa.value = '';
+        selectGenero.value = 'todos';
+        carregarFilmes();
+    });
+
+    // Event Listeners do carrossel
+    document.querySelector('.carrossel-btn.prev')?.addEventListener('click', prevSlide);
+    document.querySelector('.carrossel-btn.next')?.addEventListener('click', nextSlide);
+
+    // Inicialização
+    carregarFilmes();
+    iniciarCarrossel();
 });

@@ -20,6 +20,20 @@
       "senha": "12345",
       "nome": "Bernardo",
       "admin": true
+    },
+    {
+      "id": "d4be",
+      "login": "123",
+      "senha": "'23",
+      "nome": "Bernardo",
+      "admin": false
+    },
+    {
+      "id": "bdaa",
+      "login": "her",
+      "senha": "12345",
+      "nome": "Bernardo faria",
+      "admin": false
     }
   ],
   "items": [
@@ -363,6 +377,11 @@
         "18",
         "8"
       ]
+    },
+    {
+      "id": "2b9c",
+      "userId": "bdaa",
+      "favoritos": []
     }
   ]
 }

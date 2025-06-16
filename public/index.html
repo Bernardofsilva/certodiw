@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Adicionando Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Adicionando Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -38,6 +40,14 @@
         </div>
         <div class="carrossel-dots">
             <!-- Pontos de navegação serão inseridos via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Nova seção para o gráfico de pizza -->
+    <section id="grafico-container">
+        <h2>Distribuição por Gênero</h2>
+        <div class="grafico-wrapper">
+            <canvas id="grafico-generos"></canvas>
         </div>
     </section>
 
